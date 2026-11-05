@@ -9,7 +9,7 @@ python-dateutil>=2.8.2  # Extended date/time utilities (used by pandas)
 
 # Optional: Storage Systems (uncomment based on your chosen storage)
 # pyarrow>=12.0.0      # Apache Arrow for HDFS integration
-# pymongo>=4.5.0       # MongoDB driver for NoSQL storage
+pymongo>=4.5.0       # MongoDB driver for NoSQL storage
 
 # Optional: Additional Data Science Libraries
 # scipy>=1.10.0        # Scientific computing and advanced statistics

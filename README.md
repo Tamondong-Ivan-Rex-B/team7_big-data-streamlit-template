@@ -1,83 +1,62 @@
-# 🚀 Streaming Data Dashboard: Project Guide
+# 🚀 Big Data Streaming Dashboard
 
-This project requires building a big data streaming dashboard using **Kafka** and **Streamlit**, featuring separate real-time and historical data views.
+A real-time, end-to-end Big Data pipeline and interactive dashboard that ingests, processes, and visualizes cryptocurrency market data.
 
-## 🎯 Architecture & Components
+![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
+![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-Message_Broker-black)
+![PySpark](https://img.shields.io/badge/PySpark-Structured_Streaming-orange)
+![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-Cloud_NoSQL-green)
+![Streamlit](https://img.shields.io/badge/Streamlit-UI-red)
 
-A **dual-pipeline** architecture separates live streaming from long-term storage and analysis.
+## 📌 Overview
+This project demonstrates the application of Big Data engineering principles to high-velocity financial streams. It utilizes the **CoinGecko API** to fetch live price and volume data for a curated set of tightly clustered Web3 tokens ($1.00 - $8.00 range), ensuring readable, dynamic visualizations without massive price outliers.
 
-| Pipeline | Flow | Output |
-| :--- | :--- | :--- |
-| **Real-time** | Kafka $\rightarrow$ Streamlit (Live Consumer) | `📈 Real-time Streaming View` |
-| **Historical** | Kafka $\rightarrow$ **HDFS OR MongoDB** $\rightarrow$ Streamlit (Query) | `📊 Historical Data View` |
+**Architecture Flow:**
+`CoinGecko API` ➔ `Kafka` ➔ `PySpark` ➔ `MongoDB Atlas` ➔ `Streamlit`
 
-### Mandatory Components
-* Kafka Producer/Consumer.
-* **HDFS or MongoDB** integration.
-* Two-page Streamlit dashboard with charts.
-* Robust error handling.
+## 📁 Repository Structure
+```text
+├── app.py                     # Streamlit frontend dashboard (Real-time & Historical UI)
+├── producer.py                # Ingests CoinGecko API data into Kafka
+├── historical_consumer.py     # PySpark streaming job (Kafka to MongoDB Atlas)
+├── requirements.txt           # Python dependencies
+└── README.md                  # Project documentation
+```
 
----
+## 🛠️ Quick Start: Backend/Infrastructure (Ubuntu)
+The backend pipeline requires Java (8 or 11) and Apache Kafka to be installed locally.
 
-## 💻 Technical Implementation Tasks
+1. **Start the Kafka Broker** (KRaft mode):
+   ```bash
+   cd ~/kafka_2.13-4.1.1
+   bin/kafka-server-start.sh config/server.properties
+   ```
+2. **Setup the Python Environment**:
+   ```bash
+   conda create -n bigdata python=3.10
+   conda activate bigdata
+   pip install -r requirements.txt
+   ```
+3. **Run the Pipeline** (in separate terminal tabs):
+   ```bash
+   python producer.py              # Starts API data ingestion
+   python historical_consumer.py   # Starts PySpark processing to MongoDB
+   streamlit run app.py            # Launches the local dashboard
+   ```
 
-### 1. Data Producer (`producer.py`)
-Create a Kafka Producer that fetches real data from an **existing Application Programming Interface (API)** (e.g., a public weather API, stock market API, etc.).
+## 💻 Quick Start: Frontend Only (Windows/Teammate)
+For team members focusing on the UI, only a lightweight Python environment is required. You do not need Kafka or PySpark installed.
 
-**Required Data Schema Fields:**
-* `timestamp` (ISO format)
-* `value` (Numeric)
-* `metric_type` (String)
-* `sensor_id` (String)
-
-### 2. Dashboard (`app.py`)
-Implement the Streamlit logic:
-* `consume_kafka_data()`: Real-time processing.
-* `query_historical_data()`: Data retrieval from storage.
-* Create interactive widgets (filters, time-range selector) for the Historical View.
-
-### 3. Storage Integration
-Implement data writing and querying for **ONE** of the following: **HDFS** or **MongoDB**.
-
----
-
-## 🏃‍♂️ Setup & Execution
-
-### Prerequisites
-Python 3.8+, Apache Kafka, HDFS **OR** MongoDB.
-
-### Setup
-1. **Setup environment**
-    - Download miniconda
-    - Create your python environment
-    ```bash
-    conda create -n bigdata python=3.10.13
-    ```
-2.  **Clone Repo & Install:**
-    ```bash
-    git clone [REPO_URL]
-    conda activate bigdata
-    pip install -r requirements.txt
-    ```
-3.  **Configure:** Set up Kafka and your chosen Storage System.
-4.  **Optional Environment File (`.env`):** Use for connection details.
-
-### Execution
-1.  **Start Kafka Broker** (and Controller).
-2.  **Start Producer:**
-    ```bash
-    python producer.py
-    ```
-3.  **Launch Dashboard:**
-    ```bash
-    streamlit run app.py
-    ```
-
----
-
-## 📦 Deliverables
-Submit the following files:
-* `app.py`
-* `producer.py`
-* `requirements.txt`
-* `README.md`
+1. **Setup Environment**:
+   ```cmd
+   python -m venv env
+   env\Scripts\activate
+   pip install -r requirements.txt
+   ```
+2. **Run the Dashboard**:
+   ```cmd
+   streamlit run app.py
+   ```
+3. **Connect to Pipeline**: 
+   * To view the **Real-time Tab**, ensure you are on the same network as the Ubuntu host and update the "Kafka Broker" IP in the Streamlit sidebar (e.g., `192.168.1.X:9092`).
+   * The **Historical Tab** requires no network setup, as it pulls processed data directly from the MongoDB Atlas cloud cluster.

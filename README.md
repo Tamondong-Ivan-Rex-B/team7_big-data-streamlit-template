@@ -1,4 +1,4 @@
-# 🚀 Big Data Streaming Dashboard
+# Big Data Streaming Dashboard
 
 A real-time, end-to-end Big Data pipeline and interactive dashboard that ingests, processes, and visualizes cryptocurrency market data.
 
@@ -8,7 +8,7 @@ A real-time, end-to-end Big Data pipeline and interactive dashboard that ingests
 ![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-Cloud_NoSQL-green)
 ![Streamlit](https://img.shields.io/badge/Streamlit-UI-red)
 
-## 📌 Overview
+## Overview
 This project demonstrates the application of Big Data engineering principles to high-velocity financial streams. It utilizes the **CoinGecko API** to fetch live price and volume data for a curated set of tightly clustered Web3 tokens ($1.00 - $8.00 range), ensuring readable, dynamic visualizations without massive price outliers.
 
 **Architecture Flow:**
@@ -23,7 +23,7 @@ This project demonstrates the application of Big Data engineering principles to 
 └── README.md                  # Project documentation
 ```
 
-## 🛠️ Quick Start: Backend/Infrastructure (Ubuntu)
+## Backend/Infrastructure (Ubuntu)
 The backend pipeline requires Java (8 or 11) and Apache Kafka to be installed locally.
 
 1. **Start the Kafka Broker** (KRaft mode):
@@ -44,8 +44,8 @@ The backend pipeline requires Java (8 or 11) and Apache Kafka to be installed lo
    streamlit run app.py            # Launches the local dashboard
    ```
 
-## 💻 Quick Start: Frontend Only (Windows/Teammate)
-For team members focusing on the UI, only a lightweight Python environment is required. You do not need Kafka or PySpark installed.
+## Frontend Only (Windows)
+For team members focusing on the UI, only a lightweight Python environment is required. Kafka or PySpark is not needed.
 
 1. **Setup Environment**:
    ```cmd
@@ -58,5 +58,5 @@ For team members focusing on the UI, only a lightweight Python environment is re
    streamlit run app.py
    ```
 3. **Connect to Pipeline**: 
-   * To view the **Real-time Tab**, ensure you are on the same network as the Ubuntu host and update the "Kafka Broker" IP in the Streamlit sidebar (e.g., `192.168.1.X:9092`).
+   * To view the **Real-time Tab**, ensure same network configuration as the Ubuntu host and update the "Kafka Broker" IP in the Streamlit sidebar (e.g., `192.168.1.X:9092`).
    * The **Historical Tab** requires no network setup, as it pulls processed data directly from the MongoDB Atlas cloud cluster.

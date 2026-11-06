@@ -24,7 +24,6 @@ flake8>=6.0.0      # Linter for code quality checks
 # Additional dependedcies for formatted data export
 openpyxl
 fpdf2
-kaleido
 
 # Note: Some packages may have additional system dependencies
 # For Windows users, ensure you have Microsoft Visual C++ Build Tools installed

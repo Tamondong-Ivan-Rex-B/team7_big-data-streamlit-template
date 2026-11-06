@@ -12,7 +12,7 @@ import io
 from fpdf import FPDF
 from datetime import datetime, timedelta, timezone
 from kafka import KafkaConsumer
-from kafka.errors import KafkaError, NoBrokersAvailable
+from kafka.errors import KafkaError
 from pymongo import MongoClient
 from streamlit_autorefresh import st_autorefresh
 
@@ -153,7 +153,7 @@ def consume_kafka_data(config):
             if messages:
                 return pd.DataFrame(messages)
             return generate_sample_data()
-        except (NoBrokersAvailable, KafkaError, Exception) as e:
+        except (KafkaError, Exception) as e:
             st.error(f"Kafka error: {e}.")
             return generate_sample_data()
     else:
